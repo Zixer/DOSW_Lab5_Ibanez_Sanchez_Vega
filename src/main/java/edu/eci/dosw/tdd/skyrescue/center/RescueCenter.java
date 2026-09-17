@@ -41,17 +41,22 @@ public class RescueCenter {
      * @return true if it was registered; false otherwise.
      */
     public boolean addDrone(Drone drone) {
+
         if (drone == null) {
             return false;
         }
+
         if (drone.getId() == null || drone.getId().isBlank()) {
             return false;
         }
+
         if (drones.containsKey(drone.getId())) {
             return false;
         }
+
         drone.setAvailable(true);
         drones.put(drone.getId(), drone);
+
         return true;
     }
 
@@ -120,4 +125,6 @@ public class RescueCenter {
     public boolean addOperator(RescueOperator operator) {
         return operators.add(operator);
     }
+
+    
 }
