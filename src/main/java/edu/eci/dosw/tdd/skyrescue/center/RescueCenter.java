@@ -37,8 +37,18 @@ public class RescueCenter {
      * @return true if it was registered; false otherwise.
      */
     public boolean addDrone(Drone drone) {
-        // TODO Implement using TDD.
-        return false;
+        if (drone == null) {
+            return false;
+        }
+        if (drone.getId() == null || drone.getId().isBlank()) {
+            return false;
+        }
+        if (drones.containsKey(drone.getId())) {
+            return false;
+        }
+        drone.setAvailable(true);
+        drones.put(drone.getId(), drone);
+        return true;
     }
 
     /**
@@ -65,13 +75,19 @@ public class RescueCenter {
      * @param distanceKm mission distance in kilometers.
      * @return created mission.
      */
-    public Mission assignMission(
-            String operatorId,
-            String droneId,
-            String location,
-            int distanceKm) {
-        // TODO Implement using TDD.
-        return null;
+    public Mission assignMission(String operatorId, String droneId, String location, int distanceKm) {
+        RescueOperator operator = operators.stream().filter(op -> op.getId().equals(operatorId)).findFirst().orElseThrow(SkyRescueExceptions.OperatorNotFoundException::new);
+        Drone drone = drones.get(droneId);
+        if (drone == null) {throw new SkyRescueExceptions.DroneNotFoundException();}
+        if (!drone.isAvailable()) {throw new SkyRescueExceptions.DroneUnavailableException();}
+        if (distanceKm > drone.getMaxRangeKm()) {throw new SkyRescueExceptions.DistanceExceedsRangeException();}
+        boolean operatorHasActiveMission = missions.stream().anyMatch(mission -> mission.getOperator().getId().equals(operatorId) && mission.getStatus() == MissionStatus.ACTIVE);
+        if (operatorHasActiveMission) {throw new SkyRescueExceptions.OperatorHasActiveMissionException();}
+        String missionId = "M" + (missions.size() + 1);
+        Mission mission = new Mission(missionId,location,distanceKm,drone,operator,LocalDateTime.now(),MissionStatus.ACTIVE);
+        drone.setAvailable(false);
+        missions.add(mission);
+        return mission;
     }
 
     /**
