@@ -2,13 +2,15 @@ package edu.eci.dosw.tdd.skyrescue.center;
 
 import edu.eci.dosw.tdd.skyrescue.drone.Drone;
 import edu.eci.dosw.tdd.skyrescue.mission.Mission;
+import edu.eci.dosw.tdd.skyrescue.mission.MissionStatus;
 import edu.eci.dosw.tdd.skyrescue.operator.RescueOperator;
+import edu.eci.dosw.tdd.skyrescue.exception.SkyRescueExceptions;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 /**
  * Coordinates drones, operators and emergency missions.
  */
@@ -37,8 +39,23 @@ public class RescueCenter {
      * @return true if it was registered; false otherwise.
      */
     public boolean addDrone(Drone drone) {
-        // TODO Implement using TDD.
-        return false;
+
+        if (drone == null) {
+            return false;
+        }
+
+        if (drone.getId() == null || drone.getId().isBlank()) {
+            return false;
+        }
+
+        if (drones.containsKey(drone.getId())) {
+            return false;
+        }
+
+        drone.setAvailable(true);
+        drones.put(drone.getId(), drone);
+
+        return true;
     }
 
     /**
@@ -65,13 +82,39 @@ public class RescueCenter {
      * @param distanceKm mission distance in kilometers.
      * @return created mission.
      */
-    public Mission assignMission(
-            String operatorId,
-            String droneId,
-            String location,
-            int distanceKm) {
-        // TODO Implement using TDD.
-        return null;
+    public Mission assignMission(String operatorId,String droneId,String location,int distanceKm) {
+
+        RescueOperator operator = operators.stream().filter(op -> op.getId().equals(operatorId)).findFirst().orElseThrow(SkyRescueExceptions.OperatorNotFoundException::new);
+
+        Drone drone = drones.get(droneId);
+
+        if (drone == null) {
+            throw new SkyRescueExceptions.DroneNotFoundException();
+        }
+
+        if (!drone.isAvailable()) {
+            throw new SkyRescueExceptions.DroneUnavailableException();
+        }
+
+        if (distanceKm > drone.getMaxRangeKm()) {
+            throw new SkyRescueExceptions.DistanceExceedsRangeException();
+        }
+
+        boolean operatorHasActiveMission = missions.stream().anyMatch(mission ->mission.getOperator().getId().equals(operatorId)&& mission.getStatus() == MissionStatus.ACTIVE);
+
+        if (operatorHasActiveMission) {
+            throw new SkyRescueExceptions.OperatorHasActiveMissionException();
+        }
+
+        String missionId = "M" + (missions.size() + 1);
+
+        Mission mission = new Mission(missionId,location,distanceKm,drone,operator,LocalDateTime.now(),MissionStatus.ACTIVE);
+
+        drone.setAvailable(false);
+
+        missions.add(mission);
+
+        return mission;
     }
 
     /**
@@ -93,9 +136,21 @@ public class RescueCenter {
      * @return completed mission.
      */
     public Mission completeMission(String missionId) {
-        // TODO Implement using TDD.
-        return null;
+
+    Mission mission = missions.stream().filter(m -> m.getId().equals(missionId)).findFirst().orElseThrow(SkyRescueExceptions.MissionNotFoundException::new);
+
+    if (mission.getStatus() == MissionStatus.COMPLETED) {
+        throw new SkyRescueExceptions.MissionAlreadyCompletedException();
     }
+
+    mission.setStatus(MissionStatus.COMPLETED);
+
+    mission.setEndDate(LocalDateTime.now());
+
+    mission.getDrone().setAvailable(true);
+
+    return mission;
+}
 
     public boolean addOperator(RescueOperator operator) {
         return operators.add(operator);
