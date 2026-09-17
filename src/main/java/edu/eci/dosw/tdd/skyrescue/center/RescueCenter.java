@@ -1,13 +1,17 @@
 package edu.eci.dosw.tdd.skyrescue.center;
 
 import edu.eci.dosw.tdd.skyrescue.drone.Drone;
+import edu.eci.dosw.tdd.skyrescue.exception.SkyRescueExceptions;
 import edu.eci.dosw.tdd.skyrescue.mission.Mission;
+import edu.eci.dosw.tdd.skyrescue.mission.MissionStatus;
 import edu.eci.dosw.tdd.skyrescue.operator.RescueOperator;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Coordinates drones, operators and emergency missions.
@@ -80,13 +84,19 @@ public class RescueCenter {
      * @param distanceKm mission distance in kilometers.
      * @return created mission.
      */
-    public Mission assignMission(
-            String operatorId,
-            String droneId,
-            String location,
-            int distanceKm) {
-        // TODO Implement using TDD.
-        return null;
+    public Mission assignMission(String operatorId, String droneId, String location, int distanceKm) {
+        RescueOperator operator = operators.stream().filter(op -> op.getId().equals(operatorId)).findFirst().orElseThrow(SkyRescueExceptions.OperatorNotFoundException::new);
+        Drone drone = drones.get(droneId);
+        if (drone == null) {throw new SkyRescueExceptions.DroneNotFoundException();}
+        if (!drone.isAvailable()) {throw new SkyRescueExceptions.DroneUnavailableException();}
+        if (distanceKm > drone.getMaxRangeKm()) {throw new SkyRescueExceptions.DistanceExceedsRangeException();}
+        boolean operatorHasActiveMission = missions.stream().anyMatch(mission -> mission.getOperator().getId().equals(operatorId) && mission.getStatus() == MissionStatus.ACTIVE);
+        if (operatorHasActiveMission) {throw new SkyRescueExceptions.OperatorHasActiveMissionException();}
+        String missionId = "M" + (missions.size() + 1);
+        Mission mission = new Mission(missionId,location,distanceKm,drone,operator,LocalDateTime.now(),MissionStatus.ACTIVE);
+        drone.setAvailable(false);
+        missions.add(mission);
+        return mission;
     }
 
     /**
