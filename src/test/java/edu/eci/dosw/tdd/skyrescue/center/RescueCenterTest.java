@@ -76,3 +76,5 @@ public class RescueCenterTest {
         assertThrows(SkyRescueExceptions.OperatorHasActiveMissionException.class, () -> center.assignMission( "OP1", "D2", "Zona Sur", 40));
     }
 }
+
+ 
