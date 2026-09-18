@@ -48,8 +48,8 @@ A continuación se documenta un ciclo completo de Test-Driven Development (TDD) 
 
 | Métrica de Cobertura | Captura de Pantalla |
 | :--- | :--- |
-| **Primera Ejecución** | <br>![Cobertura inicial](docs/evidence/coverage.png) |
-| **Ejecución Final (>= 85%)** | <br>![Cobertura final](docs/evidence/coverage.png) |
+| **Primera Ejecución** | <br>![Cobertura inicial](docs/evidence/Coverage.png) |
+| **Ejecución Final (>= 85%)** | <br>![Cobertura final](docs/evidence/Coverage.png) |
 
 ---
 
@@ -57,19 +57,19 @@ A continuación se documenta un ciclo completo de Test-Driven Development (TDD) 
 
 | Requisitos de Aprobación | Dashboard de Evidencia |
 | :--- | :--- |
-| [Requisitos SonarQube](docs/evidence/sonarsuccess.png) | [Dashboard SonarQube](docs/evidence/sonardasboard.png) |
+| <br>![Requisitos SonarQube](docs/evidence/sonarsuccess.png) | <br>![Dashboard SonarQube](docs/evidence/sonardashboard.png) |
 
 
 ## 10.6 Flujo Git y Pull Requests
 
 | PR # | Componente / Funcionalidad | Enlace al repositorio |
 | :---: | :--- | :--- |
-| **#1** | Configuración de JUnit 5 en el `pom.xml` | `[Ver PR #1](https://github.com/Zixer/DOSW_Lab5_Ibanez_Sanchez_Vega/pull/1)` |
-| **#2** | Creación de las clases base | `[Ver PR #2](https://github.com/Zixer/DOSW_Lab5_Ibanez_Sanchez_Vega/pull/2)` |
-| **#3** | Desarrollo TDD para `addDrone` | `[Ver PR #3](https://github.com/Zixer/DOSW_Lab5_Ibanez_Sanchez_Vega/pull/3)` |
-| **#4** | Desarrollo TDD para `assignMission` | `[Ver PR #4](https://github.com/Zixer/DOSW_Lab5_Ibanez_Sanchez_Vega/pull/4)` |
-| **#5** | Desarrollo TDD para `completeMission` | `[Ver PR #5]( https://github.com/Zixer/DOSW_Lab5_Ibanez_Sanchez_Vega/pull/5)` |
-| **#6** | Integración del plugin de JaCoCo | `[Ver PR #6](https://github.com/Zixer/DOSW_Lab5_Ibanez_Sanchez_Vega/pull/6)` |
+| **#1** | Configuración de JUnit 5 en el `pom.xml` | `(https://github.com/Zixer/DOSW_Lab5_Ibanez_Sanchez_Vega/pull/1)` |
+| **#2** | Creación de las clases base | `(https://github.com/Zixer/DOSW_Lab5_Ibanez_Sanchez_Vega/pull/2)` |
+| **#3** | Desarrollo TDD para `addDrone` | `(https://github.com/Zixer/DOSW_Lab5_Ibanez_Sanchez_Vega/pull/3)` |
+| **#4** | Desarrollo TDD para `assignMission` | `(https://github.com/Zixer/DOSW_Lab5_Ibanez_Sanchez_Vega/pull/4)` |
+| **#5** | Desarrollo TDD para `completeMission` | ` (https://github.com/Zixer/DOSW_Lab5_Ibanez_Sanchez_Vega/pull/5)` |
+| **#6** | Integración del plugin de JaCoCo | `(https://github.com/Zixer/DOSW_Lab5_Ibanez_Sanchez_Vega/pull/6)` |
 | **#7** | Integración y correcciones de SonarQube | `No se consideró un pull request importante, debido a que estos fueron únicamente pruebas y no se realizó agregación de archivos, debido a que es un sistema externo a Github :p` |
 
 
