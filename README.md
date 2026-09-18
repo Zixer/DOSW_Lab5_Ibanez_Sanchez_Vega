@@ -30,7 +30,7 @@ A continuación se documenta un ciclo completo de Test-Driven Development (TDD) 
 
 ### Ciclo 2: 'assignMission' 
 
-| Fase | Estado | Evidencia | Explicación del cambio |
+| Fase | Estado | Evidencia |
 | :---: | :---: | :--- |
 | **RED** |  Falla | <br>![Prueba assignMission fallando](docs/evidence/assignred.png) | 
 | **GREEN** |  Pasa | <br>![Prueba assignMission pasando](docs/evidence/assigngreen.png) | 
@@ -38,7 +38,7 @@ A continuación se documenta un ciclo completo de Test-Driven Development (TDD) 
 
 ### Ciclo 3: 'completeMission' 
 
-| Fase | Estado | Evidencia | Explicación del cambio |
+| Fase | Estado | Evidencia |
 | :---: | :---: | :--- |
 | **RED** |  Falla | <br>![Prueba completeMission fallando](docs/evidence/completered.png) | 
 | **GREEN** |  Pasa | <br>![Prueba completeMission pasando](docs/evidence/completegreen.png) |
