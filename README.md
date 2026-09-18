@@ -24,7 +24,7 @@ A continuación se documenta un ciclo completo de Test-Driven Development (TDD) 
 ### Ciclo 1: 'addDrone' 
 | Fase | Estado | Evidencia |
 | :---: | :---: | :--- |
-| **RED** |  Falla | [Prueba addDrone fallando](docs/evidence/dronered.png) | 
+| **RED** |  Falla | <br>![Prueba addDrone fallando](docs/evidence/dronered.png) | 
 | **GREEN** |  Pasa | <br>![Prueba addDrone pasando](docs/evidence/dronegreen.png)|
 
 
@@ -48,8 +48,8 @@ A continuación se documenta un ciclo completo de Test-Driven Development (TDD) 
 
 | Métrica de Cobertura | Captura de Pantalla |
 | :--- | :--- |
-| **Primera Ejecución** | ![Cobertura inicial](docs/evidence/coverage.png) |
-| **Ejecución Final (>= 85%)** | ![Cobertura final](docs/evidence/coverage.png) |
+| **Primera Ejecución** | <br>![Cobertura inicial](docs/evidence/coverage.png) |
+| **Ejecución Final (>= 85%)** | <br>![Cobertura final](docs/evidence/coverage.png) |
 
 ---
 
